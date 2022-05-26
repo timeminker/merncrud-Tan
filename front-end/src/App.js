@@ -7,17 +7,14 @@ import axios from 'axios'
 
 
 
-// <form onSubmit={(event) => {
-//   handleUpdateEntry(event,book)
-// }}>
-// Name: <input type="text" onChange={handleNewNameChange}/><br/>
-// Category: <input type="text" onChange={handleNewCategoryChange}/><br/>
-// Author: <input type="text" onChange={handleNewAuthorChange}/><br/>
-// Image: <input type="url" onChange={handleNewImageChange}/><br/>
-// Booked: <input type="checkbox" onChange={handleNewBookedChange}/><br/>
-// <input type="submit" value="Edit Book"/>
-// </form>
 
+/////////-----Tried to categorize the books selection by category and show only the books with correspond category that the user chose -----/////
+// <div className="category">
+//   Fantasy<input type="checkbox"/>
+//   Fiction<input type="checkbox" />
+//   Non-fiction<input type="checkbox" />
+//   Biography<input type="checkbox" />
+// </div>
 
 const App = () => {
 
@@ -40,12 +37,10 @@ const App = () => {
 
   }
 
-  const reset = () => {
-    setNewName('')
-    setNewAuthor('')
-    setNewImage('')
-    setNewBooked(false)
+  const hide = () => {
+    setShowEdit(show)
   }
+
 
   const newBookSubmit = (event) => {
     event.preventDefault()
@@ -60,7 +55,6 @@ const App = () => {
     }).then(() => {
       axios.get('http://localhost:3000/books').then((response) => {
         setLibrary(response.data)
-        reset()
       })
     })
   }
@@ -142,16 +136,11 @@ const App = () => {
         <input type="submit" value="Add Book"/>
       </form>
       </header>
-      <div>
-        <button>Fantasy</button><br/>
-        Fiction<input type="checkbox" /><br/>
-        Non-fiction<input type="checkbox" /><br/>
-        Biography<input type="checkbox" /><br/>
-      </div>
-      <div>
+      <div className ='book-container'>
         <ul>
-          {library.map((book, index) => {
+          {library.map((book) => {
             return (
+              <div class='book'>
               <li key={book._id}>
               Name: {book.name}<br/>
               Author: {book.author}<br/>
@@ -178,11 +167,13 @@ const App = () => {
               Image: <input type="url" onChange={handleNewImageChange}/><br/>
               Booked: <input type="checkbox" onChange={handleNewBookedChange}/><br/>
               <input type="submit" value="Edit Book"/>
-              </form> : <button onClick={(event) => {handleShowEdit()}}>Click to edit</button> }
+              <button onClick={hide}>Finish Editing</button>
+              </form> : <button onClick={() => {handleShowEdit()}}>Click to edit</button> }
               <button onClick={(event) => {
                 handleDeleteEntry(book)
               }}>Delete</button>
               </li>
+              </div>
             )
           })}
         </ul>
