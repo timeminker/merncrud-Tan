@@ -3,7 +3,7 @@ import './App.css';
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 
-const App() {
+const App = () => {
   return (
     <>
       <h1>Library</h1>
