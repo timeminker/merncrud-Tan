@@ -1,4 +1,3 @@
 # merncrud-Tan
-MERN CRUD app with Tan Le
-
-Tim Minker was here.
+MERN CRUD app with Tan Le.
+MERN CRUD app with Tim Minker.
