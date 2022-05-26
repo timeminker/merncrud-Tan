@@ -1,0 +1,25 @@
+{
+  "name": "merncrud-tan",
+  "version": "1.0.0",
+  "description": "MERN CRUD app with Tan Le. MERN CRUD app with Tim Minker.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timeminker/merncrud-Tan.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timeminker/merncrud-Tan/issues"
+  },
+  "homepage": "https://github.com/timeminker/merncrud-Tan#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.3.4"
+  }
+}
