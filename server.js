@@ -1,10 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const Books = require('./models/books.js')
+const cors = require('cors')
+
 
 const app = express()
 app.use(express.json())
-
+app.use(cors())
 
 app.post('/books', (req,res) => {
   Books.create(req.body, (err,addBook) => {
