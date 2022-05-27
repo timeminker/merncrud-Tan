@@ -24,23 +24,25 @@ const App = () => {
   const [newAuthor, setNewAuthor] = useState('')
   const [newImage, setNewImage] = useState('')
   const [newBooked, setNewBooked] = useState(false)
-  const [show, setShow] = useState(false)
+  // const [show, setShow] = useState(false)
   const [editLibrary, setEditLibrary] = useState([])
-  const [showEdit, setShowEdit] = useState(false)
+  const [newShowEdit, setNewShowEdit] = useState(false)
 
-  const handleShowEdit = () => {
-    setShowEdit(!showEdit)
+  const handleShowEdit = (event, bookData) => {
+    event.preventDefault()
+    axios.put(`http://localhost:3000/books/${bookData._id}`, {
+      name: bookData.name,
+      category: bookData.category,
+      author: bookData.author,
+      image: bookData.image,
+      booked: bookData.booked,
+      showEdit:!bookData.showEdit
+    }).then(() => {
+      axios.get('http://localhost:3000/books').then((response) => {
+        setLibrary(response.data)
+      })
+    })
   }
-
-  const reveal = () => {
-      setShow(!show)
-
-  }
-
-  const hide = () => {
-    setShowEdit(show)
-  }
-
 
   const newBookSubmit = (event) => {
     event.preventDefault()
@@ -140,19 +142,21 @@ const App = () => {
         <ul>
           {library.map((book) => {
             return (
-              <div class='book'>
-              <li key={book._id}>
+              <div className='book' key={book._id}>
+              <li>
               Name: {book.name}<br/>
               Author: {book.author}<br/>
               Category: {book.category}<br/>
               <img src={book.image}/>
               {book.booked ? <p>Is Reserved</p> : <p>Available</p>}<br/>
-              {show && book.category == 'fiction' ?
-              <div>{book.name}<br/>
-              {book.author}<br/>
-              {book.category}<br/>
-              <img src={book.image}/></div> : null }
-              { showEdit ?
+
+              <button onClick={(event) => {
+                handleDeleteEntry(book)
+              }}>Delete</button>
+
+              <button onClick={(event) => {handleShowEdit(event, book)}}>Click to edit</button>
+
+              { book.showEdit ?
                 <form onSubmit={(event) => {
                 handleUpdateEntry(event,book)
               }}>
@@ -167,11 +171,9 @@ const App = () => {
               Image: <input type="url" onChange={handleNewImageChange}/><br/>
               Booked: <input type="checkbox" onChange={handleNewBookedChange}/><br/>
               <input type="submit" value="Edit Book"/>
-              <button onClick={hide}>Finish Editing</button>
-              </form> : <button onClick={() => {handleShowEdit()}}>Click to edit</button> }
-              <button onClick={(event) => {
-                handleDeleteEntry(book)
-              }}>Delete</button>
+
+              </form> : null }
+
               </li>
               </div>
             )
