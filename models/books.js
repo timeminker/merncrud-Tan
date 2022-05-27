@@ -5,7 +5,8 @@ const bookSchema = new mongoose.Schema ({
   category:{type:String, required:true},
   author:String,
   image:String,
-  booked:Boolean
+  booked:Boolean,
+  showEdit:Boolean
 })
 
 const Books = mongoose.model('Book', bookSchema)
